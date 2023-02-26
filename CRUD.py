@@ -124,6 +124,7 @@ def view_ch_del():
                             update_query = f"UPDATE `notes` SET changed_at = '{data_ch}' WHERE id = '{id_note}';"
                             cursor.execute(update_query)
                             connection.commit()
+                            print(f'\033[30m\033[42m\033[4m Заметка номер {id_note} успешно изменена. \033[0m')
                             break
                         case 3:
                             item_note = check.check_num_note()
@@ -137,6 +138,7 @@ def view_ch_del():
                             update_query = f"UPDATE `notes` SET is_deleted = '1' WHERE id = '{id_note}';"
                             cursor.execute(update_query)
                             connection.commit()
+                            print(f'\033[30m\033[42m\033[4m Заметка номер {id_note} успешно удалена. \033[0m')
                             break
 
 
