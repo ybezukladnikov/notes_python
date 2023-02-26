@@ -11,5 +11,6 @@ def main_func():
                 break
             case 1: CRUD.show_notes()
             case 2: CRUD.create_note(check.check_new_note())
+            case 3: CRUD.view_ch_del()
 
 
