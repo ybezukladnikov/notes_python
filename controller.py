@@ -1,4 +1,5 @@
 import CRUD
+import exp_imp
 import menu
 import check
 
@@ -12,5 +13,6 @@ def main_func():
             case 1: CRUD.show_notes()
             case 2: CRUD.create_note(check.check_new_note())
             case 3: CRUD.view_ch_del()
+            case 4: exp_imp.export()
 
 
