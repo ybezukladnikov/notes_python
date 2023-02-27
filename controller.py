@@ -14,5 +14,7 @@ def main_func():
             case 2: CRUD.create_note(check.check_new_note())
             case 3: CRUD.view_ch_del()
             case 4: exp_imp.export()
+            case 5: exp_imp.import_file()
+
 
 

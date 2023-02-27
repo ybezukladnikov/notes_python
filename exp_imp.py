@@ -1,4 +1,5 @@
 import json
+from pathlib import Path
 import datetime
 
 import pymysql
@@ -63,6 +64,47 @@ def export():
                     print(f'\033[30m\033[42m\033[4m Всего экспортировано {count} заметок. \033[0m')
 
                 print("#" * 20)
+
+        finally:
+            connection.close()
+
+    except Exception as ex:
+        print("Connection refused...")
+        print(ex)
+
+
+def import_file():
+    try:
+        with open("import_file.json", "r") as read_file:
+            data_import = json.load(read_file)
+
+        print("#" * 20)
+    except Exception:
+        raise RuntimeError("Проблемы с файлом")
+    try:
+        connection = pymysql.connect(
+            host=host,
+            port=3306,
+            user=user,
+            password=password,
+            database=db_name,
+            cursorclass=pymysql.cursors.DictCursor
+        )
+        print("successfully connected...")
+        print("#" * 20)
+
+        try:
+            with connection.cursor() as cursor:
+                delet_query = f"DELETE FROM notes;"
+                cursor.execute(delet_query)
+                connection.commit()
+                count = 0
+                for row in data_import:
+                    insert_query = f"INSERT INTO `notes` (title_notes, body_notes) VALUES ('{row['Заголовок']}', '{row['Тело заметки']}');"
+                    cursor.execute(insert_query)
+                    connection.commit()
+                    count+=1
+                print(f'\033[30m\033[42m\033[4m Импортировано {count} заметок. \033[0m')
 
         finally:
             connection.close()
